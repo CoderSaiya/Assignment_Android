@@ -9,20 +9,20 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.moneymanage.Entity.Finance;
+import com.example.moneymanage.Entity.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends BaseAdapter {
     private Context context;
-    private List<Finance> originalList;
-    private List<Finance>filterdList;
+    private List<Transaction> originalList;
+    private List<Transaction>filterdList;
     private LayoutInflater inflater;
-    public Adapter(Context context, ArrayList<Finance> finances){
+    public Adapter(Context context, ArrayList<Transaction> transactions){
         this.context = context;
-        originalList = new ArrayList<>(finances);
-        filterdList = new ArrayList<>(finances);
+        originalList = new ArrayList<>(transactions);
+        filterdList = new ArrayList<>(transactions);
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -52,16 +52,16 @@ public class Adapter extends BaseAdapter {
         TextView value = convertView.findViewById(R.id.value);
         TextView date = convertView.findViewById(R.id.date);
 
-        Finance finance = (Finance) getItem(position);
-        title.setText(finance.getTitle());
-        category.setText(finance.getCategory());
-        date.setText(String.valueOf(finance.getDate()));
+        Transaction transaction = (Transaction) getItem(position);
+        title.setText(transaction.getDescription());
+        category.setText(transaction.getCategory());
+        date.setText(String.valueOf(transaction.getDate()));
 
-        if (finance.getCategory().equals("Thu")) {
-            value.setText(String.format("+%,.0f", finance.getValue()));
+        if (transaction.getCategory().equals("Thu")) {
+            value.setText(String.format("+%,.0f", transaction.getAmount()));
             value.setTextColor(ContextCompat.getColor(context, android.R.color.holo_green_dark));
-        } else if (finance.getCategory().equals("Chi")) {
-            value.setText(String.format("-%,.0f", finance.getValue()));
+        } else if (transaction.getCategory().equals("Chi")) {
+            value.setText(String.format("-%,.0f", transaction.getAmount()));
             value.setTextColor(ContextCompat.getColor(context, android.R.color.holo_red_dark));
         }
 
